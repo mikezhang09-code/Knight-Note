@@ -32,7 +32,7 @@
 ### Open the Dashboard
 
   - Once logged in, go to your Ngrok Dashboard.
-  - Navigate to Auth → Authtoken (or directly [here](https://copilot.microsoft.com/chats/k9RfXPgM46do5sh2gAHJW#:~:text=(or%20directly-,here,-).)).
+  - Navigate to Auth → Authtoken (or directly) [here](https://dashboard.ngrok.com/get-started/setup).
   - Copy Your Token
 
 ### Add It to GitHub Secrets
