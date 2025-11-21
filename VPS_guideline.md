@@ -13,3 +13,7 @@
   - github name: KnightZhang69
   - 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
   - Vps repo: https://github.com/KnightZhang69/VPS.git
+### VPS Detail
+  - Address: 100.92.160.27:5900
+  - PWD: TkHa*nQ^a*eMg2%4
+  - Name: GNOME
