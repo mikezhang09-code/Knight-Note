@@ -15,12 +15,12 @@
   - Vps repo: https://github.com/KnightZhang69/VPS.git
 ### VPS Detail
 #### Linux
-    - You will see the logs in action running, IP address and Password generated like below:
+  - You will see the logs in action running, IP address and Password generated like below:
     - Address: 100.92.160.27:5900
     - PWD: TkHa*nQ^a*eMg2%4
     - Name: GNOME
 #### Windows
-    - You will see the logs in action running, IP address and Password generated like below:
+  - You will see the logs in action running, IP address and Password generated like below:
     - Address: 100.112.24.108
     - Username: vum
     - Password: User: vum | Password: yt/Wf)2;qBL*431R
