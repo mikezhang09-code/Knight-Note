@@ -33,7 +33,7 @@
 
   - Once logged in, go to your Ngrok Dashboard.
   - Navigate to Auth → Authtoken (or directly) [here](https://dashboard.ngrok.com/get-started/setup).
-  - Copy Your Token
+  - Copy Your Token: 35mWicAXrGrwp0Awk2v82uyPiSr_4WTE1P1CLaLZqfVSpeGnn
 
 ### Add It to GitHub Secrets
 
@@ -43,3 +43,14 @@
 
   - Paste the token value.
   - Save it.
+### Recover code
+    - 9VEWDCK57A
+      Y447EYEB8A
+      YK27RXJ5KX
+      2TXA6ZENTP
+      NP6XY46UGK
+      WDBAAPY7JH
+      VRPVB8S9VM
+      VXDMAW3P3X
+      7ZGQXBCNY5
+      7HNX2WHHH9
