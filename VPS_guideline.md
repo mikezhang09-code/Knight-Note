@@ -3,8 +3,9 @@
   - https://tailscale.com/
   - Github login zhang.mike@hotmail.com
 ### www.vumstar.com
-  - login: hongyanzhang69@outlook.com / 19Zhy@
+  - login: hongyanzhang69@outlook.com / 19Zhy@, user name: mikezhang69
   - Guideline artical: https://www.vumstar.com/9810/#hidden-box-comment
+  - Token: tskey-auth-kSMoeB75Af11CNTRL-wTqR9WxNPGfZhuLtC5jNGfDpycuw4jXS6
 ### App to build Github actions
   - https://g.vumstar.com/
 ### Github Token
