@@ -4,13 +4,13 @@
 
 ### **Executive Summary**
 
-The commencement of the 2026 fiscal year has marked a definitive regime change for BYD Company Limited ("BYD" or "the Group"). After a half-decade of exponential domestic expansion that culminated in the unseating of Tesla as the world's volume leader in New Energy Vehicles (NEVs), the January 2026 operational data signals a stark bifurcation in the company's growth trajectory. The convergence of a reinstated domestic purchase tax, a saturated mass-market segment, and an unprecedented competitive offensive from legacy and tech-native rivals has precipitated a sharp 30.1% year-on-year (YoY) contraction in global sales to 210,051 units.1 This headline figure, however, masks a more profound structural divergence: a near-collapse in domestic deliveries, which effectively halved month-on-month, juxtaposed against a historic 51.5% surge in export volumes to over 100,000 units.2
+The commencement of the 2026 fiscal year has marked a definitive regime change for BYD Company Limited ("BYD" or "the Group"). After a half-decade of exponential domestic expansion that culminated in the unseating of Tesla as the world's volume leader in New Energy Vehicles (NEVs), the January 2026 operational data signals a stark bifurcation in the company's growth trajectory. The convergence of a reinstated domestic purchase tax, a saturated mass-market segment, and an unprecedented competitive offensive from legacy and tech-native rivals has precipitated a sharp 30.1% year-on-year (YoY) contraction in global sales to 210,051 units. This headline figure, however, masks a more profound structural divergence: a near-collapse in domestic deliveries, which effectively halved month-on-month, juxtaposed against a historic 51.5% surge in export volumes to over 100,000 units.
 
-This report posits that 2026 will be defined by the "Great Divergence"—a year where the investment thesis transitions from a volume-led domestic growth story to a margin-led international arbitrage play. The thesis is predicated on the observation that while domestic market share is eroding under the weight of price wars initiated by Geely and Xiaomi 4, the profitability per unit on export vehicles remains robust, potentially 300-400% higher than domestic units.6
+This report posits that 2026 will be defined by the "Great Divergence"—a year where the investment thesis transitions from a volume-led domestic growth story to a margin-led international arbitrage play. The thesis is predicated on the observation that while domestic market share is eroding under the weight of price wars initiated by Geely and Xiaomi, the profitability per unit on export vehicles remains robust, potentially 300-400% higher than domestic units.
 
-Our projection for FY2026, assuming the persistence of the January trend lines, forecasts a challenging revenue environment with total turnover potentially stagnating or contracting slightly to the range of RMB 880–900 billion, driven by a volume decline of nearly 10-15% globally. However, the mix shift toward higher-ASP export units and premium domestic sub-brands (Yangwang, Fangchengbao) serves as a critical profit stabilizer. We model FY2026 Net Profit Attributable to Shareholders to settle in the range of RMB 52–56 billion, slightly below bullish street consensus but indicative of a resilient earnings floor.7
+Our projection for FY2026, assuming the persistence of the January trend lines, forecasts a challenging revenue environment with total turnover potentially stagnating or contracting slightly to the range of RMB 880–900 billion, driven by a volume decline of nearly 10-15% globally. However, the mix shift toward higher-ASP export units and premium domestic sub-brands (Yangwang, Fangchengbao) serves as a critical profit stabilizer. We model FY2026 Net Profit Attributable to Shareholders to settle in the range of RMB 52–56 billion, slightly below bullish street consensus but indicative of a resilient earnings floor.
 
-From a valuation perspective, BYD currently trades at a forward P/E of roughly 18.9x, a stark discount to its historical average and to US-based peers like Tesla, which commands multiples in excess of 400x.8 Our intrinsic value assessment, utilizing a multi-stage Discounted Cash Flow (DCF) model adjusted for the "Trend Continuation" scenario, suggests a fair value range of HK![][image1]105\. While this implies limited downside from the current price of HK$91.25 10, the lack of immediate catalysts and the overhang of Q1 2026 earnings volatility warrants a cautious **Accumulate** rating for long-term capital, rather than an aggressive Buy. The market must first digest the structural reset of China's NEV growth rates before rewarding the long-term efficacy of BYD's global manufacturing footprint.
+From a valuation perspective, BYD currently trades at a forward P/E of roughly 18.9x, a stark discount to its historical average and to US-based peers like Tesla, which commands multiples in excess of 400x. Our intrinsic value assessment, utilizing a multi-stage Discounted Cash Flow (DCF) model adjusted for the "Trend Continuation" scenario, suggests a fair value range of HK$ 95. While this implies limited downside from the current price of HK$91.25, the lack of immediate catalysts and the overhang of Q1 2026 earnings volatility warrants a cautious **Accumulate** rating for long-term capital, rather than an aggressive Buy. The market must first digest the structural reset of China's NEV growth rates before rewarding the long-term efficacy of BYD's global manufacturing footprint.
 
 ### ---
 
@@ -22,16 +22,9 @@ The release of the January 2026 sales report served as a wake-up call to the bro
 
 BYD reported total sales of 210,051 units for January 2026\. While a seasonal dip is typical around the Lunar New Year, the magnitude of this decline—down 30.1% YoY and roughly 50% month-on-month (MoM) from December 2025—indicates factors far more systemic than holiday seasonality.1
 
-**Table 1: January 2026 Sales Performance Decomposition**
+**Figure 1: January 2026 Sales Performance Decomposition**
 
-| Metric | Jan 2026 (Units) | Jan 2025 (Units) | YoY Change | MoM Change (vs Dec '25) |
-| :---- | :---- | :---- | :---- | :---- |
-| **Total Sales** | **210,051** | **300,538** | **\-30.1%** | **\-50.0%** |
-| Passenger BEV | 83,249 | 125,372 (est) | \-33.6% | \-56.4% |
-| Passenger PHEV | 122,269 | 171,075 (est) | \-28.5% | \-45.4% |
-| Commercial NEVs | 4,533 | 4,091 | \+10.8% | \-19.3% |
-| **Export Volume** | **100,482** | **66,332 (est)** | **\+51.5%** | **\-24.6%** |
-| **Domestic Volume** | **\~109,569** | **\~234,000** | **\~-53.0%** | **\~-63.0%** |
+![January 2026 Sales Performance Decomposition](jan_sales_comparison.png)
 
 Source: Compiled from data in.1
 
@@ -156,25 +149,18 @@ The user prompt requires a projection assuming the January trend (Domestic colla
 * **Domestic:** We assume the January run-rate of \~110,000 units recovers slightly due to seasonality but remains structurally impaired. We model a 20% YoY decline for the full year.  
 * **Export:** We assume the January strength persists, driven by new market entries and shipping capacity. We project 25% YoY growth, hitting the company's 1.3 million target.30
 
-**Table 2: FY2026 Volume Forecast (Trend Continuation Model)**
+**Figure 2: FY2026 Volume Forecast (Trend Continuation Model)**
 
-| Segment | FY2025 Est (Units) | FY2026 Projection (Units) | YoY Growth | Key Assumptions |
-| :---- | :---- | :---- | :---- | :---- |
-| **Domestic** | 3,500,000 | 2,800,000 | \-20.0% | Tax impact, competition, saturation. |
-| **Export** | 1,050,000 | 1,312,500 | \+25.0% | New markets, shipping fleet expansion. |
-| **Total Sales** | **4,550,000** | **4,112,500** | **\-9.6%** | **Global volume contraction.** |
+![FY2026 Volume Forecast (Trend Continuation Model)](fy2026_forecast.png)
 
 #### **6.2 Revenue Forecast**
 
 The revenue contraction will be mitigated by the "Mix Shift" to higher-priced exports.
 
-* **Domestic ASP:** \~RMB 150,000 (Mix shifts slightly premium as budget buyers drop out).  
+* **Domestic ASP:** \~RMB 150,000 (Mix shifts slightly premium as budget buyers drop out).
 * **Export ASP:** \~RMB 220,000 (Premium pricing in EU/Brazil).
 
-![][image2]  
-![][image3]  
-![][image4]  
-Adding \~RMB 180 Billion for BYD Electronic (handsets/components) 31, the **Total Group Revenue** is projected at **RMB 888 Billion**. This represents a stagnation or slight decline from FY2025 levels.
+Adding \~RMB 180 Billion for BYD Electronic (handsets/components), the **Total Group Revenue** is projected at **RMB 888 Billion**. This represents a stagnation or slight decline from FY2025 levels.
 
 #### **6.3 Profit Forecast**
 
