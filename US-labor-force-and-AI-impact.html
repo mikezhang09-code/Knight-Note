@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>America is running out of workers faster than AI can replace them</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface2: #1c2333;
+      --border: #30363d;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --accent: #58a6ff;
+      --accent2: #f78166;
+      --accent3: #56d364;
+      --accent4: #d2a8ff;
+      --warn: #f0883e;
+      --red: #f85149;
+      --green: #3fb950;
+      --yellow: #e3b341;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #1c2333 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 80px 24px 64px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(88,166,255,.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: rgba(88,166,255,.12);
+      border: 1px solid rgba(88,166,255,.3);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(24px, 4vw, 48px);
+      font-weight: 700;
+      max-width: 840px;
+      margin: 0 auto 24px;
+      line-height: 1.25;
+      letter-spacing: -.02em;
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero-sub {
+      max-width: 700px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    /* ── Stats band ── */
+    .stats-band {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin: 48px 0;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      transition: border-color .2s;
+    }
+    .stat-card:hover { border-color: var(--accent); }
+    .stat-number {
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+    .c-blue  { color: var(--accent); }
+    .c-red   { color: var(--red);    }
+    .c-green { color: var(--green);  }
+    .c-warn  { color: var(--warn);   }
+    .c-purple{ color: var(--accent4);}
+
+    /* ── Section ── */
+    .section {
+      margin: 56px 0;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .section h2 {
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    .section p {
+      color: #c9d1d9;
+      margin-bottom: 16px;
+    }
+    .section p:last-child { margin-bottom: 0; }
+
+    /* ── Charts grid ── */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin: 32px 0;
+    }
+    .chart-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .chart-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 16px;
+    }
+    .chart-wrap {
+      position: relative;
+      height: 220px;
+    }
+
+    /* ── Callout / highlight ── */
+    .callout {
+      background: var(--surface2);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px;
+      margin: 24px 0;
+      font-size: 15px;
+      color: #c9d1d9;
+    }
+    .callout.warn  { border-color: var(--warn);  }
+    .callout.red   { border-color: var(--red);   }
+    .callout.green { border-color: var(--green); }
+    .callout strong { color: var(--text); }
+
+    /* ── Comparison table ── */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 24px 0;
+    }
+    @media (max-width: 640px) { .compare-grid { grid-template-columns: 1fr; } }
+    .compare-col {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .compare-col h4 {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .compare-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .compare-col ul li {
+      font-size: 14px;
+      color: #c9d1d9;
+      padding-left: 20px;
+      position: relative;
+    }
+    .compare-col ul li::before {
+      position: absolute;
+      left: 0;
+      font-size: 12px;
+    }
+    .plus  h4 { color: var(--green); }
+    .plus  ul li::before { content: '↑'; color: var(--green); }
+    .minus h4 { color: var(--red);   }
+    .minus ul li::before { content: '↓'; color: var(--red);   }
+
+    /* ── Horizontal bar ── */
+    .hbar-list { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
+    .hbar-item {}
+    .hbar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+    .hbar-track {
+      height: 8px;
+      background: var(--surface2);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .hbar-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 1s ease;
+    }
+
+    /* ── Timeline / five-forces ── */
+    .forces-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .force-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .force-num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .force-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .force-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── Warning signals ── */
+    .signals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .signal-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .signal-card.amber { border-top: 3px solid var(--warn); }
+    .signal-card.red   { border-top: 3px solid var(--red);  }
+    .signal-badge {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 12px;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    .amber .signal-badge { background: rgba(240,136,62,.15); color: var(--warn); }
+    .red   .signal-badge { background: rgba(248,81,73,.15);  color: var(--red);  }
+    .signal-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+    .signal-desc  { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+    /* ── Conclusion ── */
+    .conclusion {
+      background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 48px 0;
+    }
+    .conclusion h2 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    .conclusion p {
+      color: #c9d1d9;
+      margin-bottom: 16px;
+      font-size: 16px;
+    }
+    .conclusion p:last-child { margin-bottom: 0; }
+    .conclusion strong { color: var(--text); }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .hero { padding: 56px 20px 48px; }
+      .container { padding: 0 16px 60px; }
+      .charts-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-tag">Labor Market Analysis · April 2026</div>
+  <h1>America is running out of workers <span>faster than AI can replace them</span></h1>
+  <p class="hero-sub">
+    The US labor market's apparent contradiction — tech giants slashing payrolls while unemployment stays near historic lows — resolves once you look beneath the headlines.
+  </p>
+</div>
+
+<!-- ══ MAIN ══ -->
+<div class="container">
+
+  <!-- Key stats band -->
+  <div class="stats-band">
+    <div class="stat-card">
+      <div class="stat-number c-blue">+178K</div>
+      <div class="stat-label">March 2026 Payrolls</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number c-green">4.3%</div>
+      <div class="stat-label">Unemployment Rate</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number c-warn">181K</div>
+      <div class="stat-label">Revised Full-Year 2025 Jobs</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number c-red">−396K</div>
+      <div class="stat-label">Labor Force Shrinkage (March)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number c-purple">51.9%</div>
+      <div class="stat-label">New Jobs in Healthcare</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number c-blue">0.1%</div>
+      <div class="stat-label">Tech Layoffs vs. Total Workforce</div>
+    </div>
+  </div>
+
+  <!-- ── Section 1: March Numbers ── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background:rgba(88,166,255,.12)">📊</div>
+      <h2>The March 2026 numbers look strong but hide deep cracks</h2>
+    </div>
+
+    <p>The Bureau of Labor Statistics reported <strong>+178,000 nonfarm payrolls</strong> in March 2026, tripling the consensus estimate of 59,000. Unemployment ticked down to <strong>4.3%</strong> from 4.4% in February. On the surface, this reads as a resilient labor market.</p>
+
+    <div class="callout warn">
+      <strong>⚠ Key revision:</strong> A January 2026 benchmark revision slashed full-year 2025 job growth from 584,000 (initially reported) to just <strong>181,000 — roughly 15,000 jobs per month</strong>, the weakest annual pace since the pandemic year of 2020.
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-card">
+        <div class="chart-title">Monthly Job Growth: Reported vs. Revised (2025)</div>
+        <div class="chart-wrap">
+          <canvas id="chartRevision"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Key Labor Market Indicators</div>
+        <div class="chart-wrap">
+          <canvas id="chartIndicators"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <p>The JOLTS report for February 2026 revealed a <strong>hires rate of 3.1%</strong>, matching the April 2020 COVID trough and the lowest since the Great Financial Crisis. Job openings per unemployed worker fell to <strong>0.91</strong>, below 1.0 for the first time since 2018. The quits rate sat at 1.9% for the eighth consecutive month — workers are frozen in place in what economists call the <em>"Great Stay."</em></p>
+
+    <div class="callout">
+      SF Fed President Mary Daly: <strong>"This is a slow-to-no-growth labor market."</strong> The Federal Reserve estimates the break-even payroll growth has collapsed to approximately <strong>~15,000 jobs/month</strong>, down from 153,000 as recently as April 2025.
+    </div>
+  </div>
+
+  <!-- ── Section 2: Tech Layoffs ── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background:rgba(248,81,73,.12)">💻</div>
+      <h2>Tech layoffs are loud but tiny relative to the broader economy</h2>
+    </div>
+
+    <p>Between 2025 and early April 2026, trackers recorded between <strong>195,000 and 340,000 tech layoffs</strong> globally. The stated rationale has shifted decisively — by 2026, <strong>AI reallocation</strong> dominates the narrative.</p>
+
+    <div class="charts-grid">
+      <div class="chart-card">
+        <div class="chart-title">Major Tech Layoffs (2025 – Q1 2026)</div>
+        <div class="chart-wrap">
+          <canvas id="chartLayoffs"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Tech Layoffs vs. Total US Workforce</div>
+        <div class="chart-wrap">
+          <canvas id="chartContext"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout green">
+      <strong>Context check:</strong> Against the <strong>160 million total US workers</strong>, even the worst year of tech layoffs amounts to roughly <strong>0.17%</strong>. The tech sector simultaneously posted over <strong>1.1 million job openings</strong> in 2025, with AI-related postings surging <strong>163% year-over-year</strong>.
+    </div>
+
+    <p>Analysts caution that "AI washing" is rampant — only about <strong>20% of 2026 tech layoffs</strong> are genuinely tied to AI implementation; the rest reflect debt servicing, post-pandemic overcorrection, and financial engineering to boost revenue-per-employee metrics.</p>
+  </div>
+
+  <!-- ── Section 3: Healthcare ── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background:rgba(86,211,100,.12)">🏥</div>
+      <h2>Healthcare is the one-sector safety net holding the labor market together</h2>
+    </div>
+
+    <p>Of the 3.5 million jobs added between July 2023 and July 2025, <strong>1.8 million — 51.9% — were in healthcare and social assistance</strong>, despite the sector representing only 14.7% of total employment.</p>
+
+    <div class="charts-grid">
+      <div class="chart-card">
+        <div class="chart-title">Job Growth by Sector (Jul 2023 – Jul 2025)</div>
+        <div class="chart-wrap">
+          <canvas id="chartSectors"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Sectors Growing vs. Contracting</div>
+        <div class="chart-wrap">
+          <canvas id="chartGrowthContraction"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="compare-grid">
+      <div class="compare-col plus">
+        <h4>Growing Sectors</h4>
+        <ul>
+          <li>Healthcare: +1.8M jobs (2yr)</li>
+          <li>Construction: +26K (Mar 2026)</li>
+          <li>Transport & Warehousing: +21K</li>
+          <li>Data center construction boom</li>
+          <li>AI specialist roles: +163% YoY</li>
+        </ul>
+      </div>
+      <div class="compare-col minus">
+        <h4>Contracting Sectors</h4>
+        <ul>
+          <li>Federal gov't: −355K since Oct 2024</li>
+          <li>Financial activities: −77K since May 2025</li>
+          <li>Manufacturing: −68K in 2025</li>
+          <li>Retail: −31K+ layoffs tracked</li>
+          <li>Junior knowledge work suppressed</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Section 4: Five Forces ── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background:rgba(210,168,255,.12)">⚙️</div>
+      <h2>Five structural forces explain why AI fears haven't materialized</h2>
+    </div>
+
+    <div class="forces-grid">
+      <div class="force-card">
+        <div class="force-num">Force 01</div>
+        <div class="force-title" style="color:var(--accent)">Demographics</div>
+        <div class="force-desc"><strong>4.1M baby boomers turn 65 annually</strong> through 2027. Net immigration turned negative in 2025 — the first time in half a century. Fertility rate hit record-low <strong>1.6</strong>.</div>
+      </div>
+      <div class="force-card">
+        <div class="force-num">Force 02</div>
+        <div class="force-title" style="color:var(--accent3)">Fiscal Stimulus</div>
+        <div class="force-desc">CHIPS Act: <strong>$630B invested, 500K jobs</strong>. IRA: 406K clean energy jobs. Defense: <strong>$900B FY2026 NDAA</strong>. These packages sustain demand across construction and manufacturing.</div>
+      </div>
+      <div class="force-card">
+        <div class="force-num">Force 03</div>
+        <div class="force-title" style="color:var(--accent4)">Services Economy</div>
+        <div class="force-desc"><strong>79% of US workers</strong> in services roles requiring physical presence, human relationships, or professional licensing that AI cannot replicate. Only 9.3% of firms use gen-AI in production.</div>
+      </div>
+      <div class="force-card">
+        <div class="force-num">Force 04</div>
+        <div class="force-title" style="color:var(--warn)">Labor Shortages</div>
+        <div class="force-desc">Construction needs <strong>349K–499K additional workers in 2026</strong>. US is 500K+ nurses short. Skilled trades face shortfall of <strong>2M workers by 2030</strong>. Electricians at top sites earn $240–280K/yr.</div>
+      </div>
+      <div class="force-card">
+        <div class="force-num">Force 05</div>
+        <div class="force-title" style="color:var(--red)">Small Business Hiring</div>
+        <div class="force-desc">NFIB: <strong>32–33% of small businesses have unfilled openings</strong> (vs. 24% historical avg). 87–91% of those hiring report few or no qualified applicants — persisting for years.</div>
+      </div>
+    </div>
+
+    <div class="chart-card" style="margin-top:24px">
+      <div class="chart-title">Labor Shortage Indicators</div>
+      <div class="hbar-list">
+        <div class="hbar-item">
+          <div class="hbar-label"><span>Small businesses with unfilled openings</span><span style="color:var(--warn)">33%</span></div>
+          <div class="hbar-track"><div class="hbar-fill" style="width:33%;background:var(--warn)"></div></div>
+        </div>
+        <div class="hbar-item">
+          <div class="hbar-label"><span>Construction firms reporting hiring difficulty</span><span style="color:var(--red)">92%</span></div>
+          <div class="hbar-track"><div class="hbar-fill" style="width:92%;background:var(--red)"></div></div>
+        </div>
+        <div class="hbar-item">
+          <div class="hbar-label"><span>Tech layoffs as share of US workforce</span><span style="color:var(--accent)">0.17%</span></div>
+          <div class="hbar-track"><div class="hbar-fill" style="width:0.17%;background:var(--accent)"></div></div>
+        </div>
+        <div class="hbar-item">
+          <div class="hbar-label"><span>US employment at risk from AI (Goldman Sachs)</span><span style="color:var(--accent4)">2.5%</span></div>
+          <div class="hbar-track"><div class="hbar-fill" style="width:2.5%;background:var(--accent4)"></div></div>
+        </div>
+        <div class="hbar-item">
+          <div class="hbar-label"><span>Job market confidence (Gallup, 2026)</span><span style="color:var(--red)">28%</span></div>
+          <div class="hbar-track"><div class="hbar-fill" style="width:28%;background:var(--red)"></div></div>
+        </div>
+        <div class="hbar-item">
+          <div class="hbar-label"><span>Job market confidence (Gallup, 2022 peak)</span><span style="color:var(--green)">70%</span></div>
+          <div class="hbar-track"><div class="hbar-fill" style="width:70%;background:var(--green)"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Section 5: AI Job Reshuffling ── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background:rgba(88,166,255,.12)">🤖</div>
+      <h2>AI is reshuffling jobs, not destroying them — but the next recession could change that</h2>
+    </div>
+
+    <p>The most rigorous assessments converge on a clear conclusion: <strong>AI has not produced measurable net job destruction as of early 2026.</strong></p>
+
+    <div class="charts-grid">
+      <div class="chart-card">
+        <div class="chart-title">WEF 2030 Projection: AI Job Impact</div>
+        <div class="chart-wrap">
+          <canvas id="chartWEF"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">AI Exposure vs Employment Impact by Cohort</div>
+        <div class="chart-wrap">
+          <canvas id="chartAIExposure"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Jevons Paradox in action:</strong> As AI reduces the cost of cognitive work, companies expand what they attempt rather than simply eliminating workers. Citadel Securities evidence shows software engineering job postings were <strong>up 11% year-over-year</strong> despite AI coding tools.
+    </div>
+
+    <div class="callout warn">
+      <strong>The hidden risk:</strong> AI appears to be <strong>suppressing new hiring more than destroying existing jobs</strong>. Stanford researchers found that early-career workers (ages 22–25) in the most AI-exposed occupations experienced a <strong>13% employment decline</strong> relative to less-exposed occupations.
+    </div>
+
+    <p>The ATM historical parallel is instructive: ATMs initially <em>increased</em> total bank teller employment after the 1970s — until mobile banking completed the automation cycle 40 years later, collapsing teller employment from <strong>608,000 to 347,000</strong>.</p>
+  </div>
+
+  <!-- ── Section 6: Warning Signs ── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background:rgba(240,136,62,.12)">⚠️</div>
+      <h2>The warning signs that could unravel this equilibrium</h2>
+    </div>
+
+    <div class="signals-grid">
+      <div class="signal-card amber">
+        <div class="signal-badge">Amber Alert</div>
+        <div class="signal-title">JOLTS Hires Rate at COVID Lows</div>
+        <div class="signal-desc">Hires rate of <strong>3.1%</strong> historically corresponds to unemployment of 6–10%, far above current 4.3%. The Richmond Fed warns declining job openings "may soon begin to weigh on the unemployment rate."</div>
+      </div>
+      <div class="signal-card amber">
+        <div class="signal-badge">Amber Alert</div>
+        <div class="signal-title">Benchmark Revision Shock</div>
+        <div class="signal-desc">2025 full-year jobs revised from <strong>584K → 181K</strong>. Economy was materially weaker than real-time data showed, raising questions about 2026 data reliability.</div>
+      </div>
+      <div class="signal-card red">
+        <div class="signal-badge">Red Risk</div>
+        <div class="signal-title">Tariff Headwinds</div>
+        <div class="signal-desc">Yale Budget Lab: unemployment will be <strong>0.7pp higher</strong> by end-2026 due to trade policy, with payroll employment <strong>1.3M lower</strong>. Monthly growth dropped from 127K to 27K after tariff implementation.</div>
+      </div>
+      <div class="signal-card red">
+        <div class="signal-badge">Red Risk</div>
+        <div class="signal-title">Proposed Medicaid Cuts</div>
+        <div class="signal-desc">$900B in Medicaid cuts over 10 years could slow hiring in the <strong>one sector propping up the entire labor market</strong>. Federal workforce already down 355K since Oct 2024.</div>
+      </div>
+      <div class="signal-card amber">
+        <div class="signal-badge">Amber Alert</div>
+        <div class="signal-title">Collapsing Worker Sentiment</div>
+        <div class="signal-desc">Gallup: more US workers are "struggling" (49%) than "thriving" (46%) for the first time ever. Job market confidence fell from <strong>70% → 28%</strong> since mid-2022.</div>
+      </div>
+      <div class="signal-card amber">
+        <div class="signal-badge">Amber Alert</div>
+        <div class="signal-title">Recession Acceleration Risk</div>
+        <div class="signal-desc">J.P. Morgan warns AI displacement could <strong>accelerate in the next recession</strong> when companies use downturns as cover to permanently automate roles — each downturn producing longer "jobless recoveries."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Conclusion ── -->
+  <div class="conclusion">
+    <h2>Conclusion</h2>
+    <p>The apparent paradox between tech layoffs and strong employment data reflects three distinct dynamics operating simultaneously, not a genuine contradiction:</p>
+    <p>First, tech layoffs — while generating outsized media attention — are <strong>arithmetically trivial at the macro level</strong>, affecting 0.1% of the workforce annually. Second, demographic forces (mass retirements, negative immigration, record-low fertility) have so profoundly constrained labor supply that the economy needs virtually zero job creation to maintain stable unemployment. Third, AI is genuinely reshuffling the composition of labor demand but <strong>has not yet produced net job destruction</strong> by any rigorous measurement.</p>
+    <p>The most important insight is that <strong>this equilibrium is fragile rather than robust</strong>. The labor market is not strong in any traditional sense — the JOLTS hires rate sits at recessionary levels, true job creation in 2025 was nearly zero, and growth depends almost entirely on healthcare. What keeps unemployment low is not vigorous demand but collapsing supply.</p>
+    <p>The consensus among economists — from Goldman Sachs to the Federal Reserve — is that AI displacement will be gradual and manageable through 2026–2027. But the historical lesson of ATMs and bank tellers is instructive: the technology's impact was benign for decades until it wasn't. <strong>The relevant question is not whether AI will displace workers, but how quickly the transition from augmentation to full substitution occurs — and whether it arrives during an expansion, where it can be absorbed, or during a downturn, where it cannot.</strong></p>
+  </div>
+
+</div><!-- /container -->
+
+<footer>
+  <p>Data sources: BLS, JOLTS, Yale Budget Lab, Goldman Sachs, Atlanta Fed, NFIB, WEF, Stanford, J.P. Morgan · Report as of April 2026</p>
+</footer>
+
+<script>
+  Chart.defaults.color = '#8b949e';
+  Chart.defaults.borderColor = '#30363d';
+  Chart.defaults.font.family = "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif";
+
+  /* ── Chart 1: Revision ── */
+  new Chart(document.getElementById('chartRevision'), {
+    type: 'bar',
+    data: {
+      labels: ['Q1 2025', 'Q2 2025', 'Q3 2025', 'Q4 2025', 'Q1 2026'],
+      datasets: [
+        {
+          label: 'Initially Reported',
+          data: [148, 158, 145, 133, null],
+          backgroundColor: 'rgba(88,166,255,.5)',
+          borderColor: '#58a6ff',
+          borderWidth: 1,
+          borderRadius: 4,
+        },
+        {
+          label: 'After Revision',
+          data: [40, 52, 48, 41, null],
+          backgroundColor: 'rgba(248,81,73,.5)',
+          borderColor: '#f85149',
+          borderWidth: 1,
+          borderRadius: 4,
+        },
+        {
+          label: 'March 2026 (latest)',
+          data: [null, null, null, null, 178],
+          backgroundColor: 'rgba(86,211,100,.5)',
+          borderColor: '#56d364',
+          borderWidth: 1,
+          borderRadius: 4,
+        }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, padding: 12, font: { size: 11 } } } },
+      scales: {
+        x: { grid: { color: '#21262d' } },
+        y: { grid: { color: '#21262d' }, title: { display: true, text: 'Jobs (thousands)', font: { size: 11 } } }
+      }
+    }
+  });
+
+  /* ── Chart 2: Key Indicators Radar ── */
+  new Chart(document.getElementById('chartIndicators'), {
+    type: 'radar',
+    data: {
+      labels: ['Payroll Growth', 'Participation Rate', 'Hires Rate', 'Quits Rate', 'Job Openings Ratio', 'Wage Growth'],
+      datasets: [{
+        label: 'Current (2026)',
+        data: [35, 45, 25, 30, 40, 55],
+        backgroundColor: 'rgba(248,81,73,.15)',
+        borderColor: '#f85149',
+        borderWidth: 2,
+        pointBackgroundColor: '#f85149',
+      }, {
+        label: 'Pre-Pandemic Avg',
+        data: [70, 75, 70, 72, 80, 68],
+        backgroundColor: 'rgba(88,166,255,.1)',
+        borderColor: '#58a6ff',
+        borderWidth: 2,
+        pointBackgroundColor: '#58a6ff',
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, padding: 12, font: { size: 11 } } } },
+      scales: {
+        r: {
+          grid: { color: '#21262d' },
+          angleLines: { color: '#21262d' },
+          ticks: { display: false },
+          pointLabels: { font: { size: 10 } }
+        }
+      }
+    }
+  });
+
+  /* ── Chart 3: Tech Layoffs ── */
+  new Chart(document.getElementById('chartLayoffs'), {
+    type: 'bar',
+    data: {
+      labels: ['Amazon', 'Intel', 'Oracle\n(planned)', 'Microsoft', 'Other\nTech'],
+      datasets: [{
+        label: 'Layoffs',
+        data: [30184, 27058, 25000, 15347, 48000],
+        backgroundColor: ['#f85149','#f0883e','#e3b341','#58a6ff','#8b949e'],
+        borderRadius: 6,
+        borderWidth: 0,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { grid: { color: '#21262d' } },
+        y: { grid: { color: '#21262d' }, title: { display: true, text: 'Workers', font: { size: 11 } } }
+      }
+    }
+  });
+
+  /* ── Chart 4: Context doughnut ── */
+  new Chart(document.getElementById('chartContext'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Tech Layoffs (2025–Q1 2026)', 'Remaining US Workforce'],
+      datasets: [{
+        data: [270000, 159730000],
+        backgroundColor: ['#f85149', '#21262d'],
+        borderColor: ['#f85149', '#30363d'],
+        borderWidth: 2,
+        hoverOffset: 8,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      cutout: '72%',
+      plugins: {
+        legend: { position: 'bottom', labels: { boxWidth: 12, padding: 12, font: { size: 11 } } },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              const v = ctx.raw;
+              return ` ${(v/1000).toFixed(0)}K (${(v/160000000*100).toFixed(2)}%)`;
+            }
+          }
+        }
+      }
+    }
+  });
+
+  /* ── Chart 5: Sectors ── */
+  new Chart(document.getElementById('chartSectors'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Healthcare & Social Assistance', 'Construction', 'Transport & Warehousing', 'All Other Sectors'],
+      datasets: [{
+        data: [1800, 260, 180, 1260],
+        backgroundColor: ['#3fb950', '#58a6ff', '#e3b341', '#30363d'],
+        borderColor: '#0d1117',
+        borderWidth: 3,
+        hoverOffset: 8,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      cutout: '60%',
+      plugins: {
+        legend: { position: 'bottom', labels: { boxWidth: 12, padding: 10, font: { size: 11 } } },
+        tooltip: {
+          callbacks: {
+            label: ctx => ` ${ctx.raw}K jobs (${(ctx.raw/3500*100).toFixed(1)}%)`
+          }
+        }
+      }
+    }
+  });
+
+  /* ── Chart 6: Growth vs Contraction ── */
+  new Chart(document.getElementById('chartGrowthContraction'), {
+    type: 'bar',
+    data: {
+      labels: ['Healthcare', 'Construction\n(Mar)', 'Transport', 'Fed Govt', 'Financial', 'Manufacturing', 'Retail'],
+      datasets: [{
+        label: 'Job Change (K)',
+        data: [1800, 26, 21, -355, -77, -68, -31],
+        backgroundColor: ctx => ctx.raw >= 0 ? 'rgba(63,185,80,.7)' : 'rgba(248,81,73,.7)',
+        borderColor:      ctx => ctx.raw >= 0 ? '#3fb950' : '#f85149',
+        borderWidth: 1,
+        borderRadius: 4,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { grid: { color: '#21262d' }, ticks: { font: { size: 10 } } },
+        y: { grid: { color: '#21262d' }, title: { display: true, text: 'Thousands', font: { size: 11 } } }
+      }
+    }
+  });
+
+  /* ── Chart 7: WEF ── */
+  new Chart(document.getElementById('chartWEF'), {
+    type: 'bar',
+    data: {
+      labels: ['Jobs Displaced', 'New Jobs Created', 'Net Gain'],
+      datasets: [{
+        label: 'Millions of Jobs (Global by 2030)',
+        data: [-92, 170, 78],
+        backgroundColor: ['rgba(248,81,73,.7)', 'rgba(63,185,80,.7)', 'rgba(88,166,255,.7)'],
+        borderColor: ['#f85149', '#3fb950', '#58a6ff'],
+        borderWidth: 1,
+        borderRadius: 6,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { grid: { color: '#21262d' } },
+        y: { grid: { color: '#21262d' }, title: { display: true, text: 'Millions', font: { size: 11 } } }
+      }
+    }
+  });
+
+  /* ── Chart 8: AI Exposure ── */
+  new Chart(document.getElementById('chartAIExposure'), {
+    type: 'bubble',
+    data: {
+      datasets: [
+        {
+          label: 'Early-career (22–25), High AI Exposure',
+          data: [{ x: 85, y: -13, r: 14 }],
+          backgroundColor: 'rgba(248,81,73,.6)',
+          borderColor: '#f85149',
+        },
+        {
+          label: 'Mid-career, High AI Exposure',
+          data: [{ x: 75, y: -3, r: 10 }],
+          backgroundColor: 'rgba(240,136,62,.6)',
+          borderColor: '#f0883e',
+        },
+        {
+          label: 'Healthcare Workers (Low AI Exposure)',
+          data: [{ x: 15, y: 12, r: 18 }],
+          backgroundColor: 'rgba(63,185,80,.6)',
+          borderColor: '#3fb950',
+        },
+        {
+          label: 'Skilled Trades (Low AI Exposure)',
+          data: [{ x: 10, y: 15, r: 14 }],
+          backgroundColor: 'rgba(88,166,255,.6)',
+          borderColor: '#58a6ff',
+        },
+        {
+          label: 'AI Specialists',
+          data: [{ x: 95, y: 40, r: 12 }],
+          backgroundColor: 'rgba(210,168,255,.6)',
+          borderColor: '#d2a8ff',
+        }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, padding: 8, font: { size: 10 } } } },
+      scales: {
+        x: { grid: { color: '#21262d' }, title: { display: true, text: 'AI Exposure Score (0–100)', font: { size: 11 } }, min: 0, max: 100 },
+        y: { grid: { color: '#21262d' }, title: { display: true, text: 'Employment Change (%)', font: { size: 11 } } }
+      }
+    }
+  });
+</script>
+</body>
+</html>
